@@ -402,7 +402,7 @@ class _CloseEventFormWidgetState extends ConsumerState<CloseEventFormWidget> {
           const SizedBox(height: 16),
           CMITextField(
             controller: locController,
-            hintText: 'Linee di codice',
+            hintText: 'Righe di codice',
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.number,
             validator: (v) {
@@ -501,7 +501,7 @@ class EventInfo extends StatelessWidget {
             if (event.loc != null)
               Flexible(
                 child: InfoText(
-                  label: 'Linee di codice',
+                  label: 'Righe di codice',
                   value: event.loc.toString(),
                 ),
               ),

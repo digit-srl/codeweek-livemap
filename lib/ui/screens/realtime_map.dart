@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cw_live_map/application/map_stream.dart';
 import 'package:cw_live_map/cloud.dart';
@@ -11,6 +13,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../consts.dart';
 import '../../main.dart';
 
 final markersStateProvider = StateProvider<Set<Marker>>((ref) {
@@ -85,7 +88,7 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text('Attività in corso: $count',style: Theme.of(context).textTheme.headline4,),
-                        Text('Linee di codice: 1245',style: Theme.of(context).textTheme.headline4,),
+                        Text('Righe di codice: 1245',style: Theme.of(context).textTheme.headline4,),
                       ],
                     ),
                   );
@@ -100,10 +103,12 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
                   final count = stats?.liveEventsCount.toString() ?? '-';
                   final loc = stats?.loc.toString() ?? '-';
                   final width = MediaQuery.of(context).size.width;
-                  print(width);
-                  final padding = width / 85; //16 with 1512
-                  return Container(
-                    width: width / 4,
+                  final padding = max(10.0, width / 80); //16 with 1512
+                  final boxWidth = max(200.0, width / 4);
+                  print(
+                      'width: $width, boxWidth: $boxWidth, padding: $padding');
+                  return SizedBox(
+                    width: boxWidth,
                     // height: width / 11,
                     child: Stack(
                       children: [
@@ -141,7 +146,7 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
                               ),
                               FittedBox(
                                 child: Text(
-                                  'Linee di codice: $loc',
+                                  'Righe di codice: $loc',
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
@@ -163,6 +168,10 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
                   );
                 },
               )),
+          const Align(
+            alignment: Alignment.bottomLeft,
+            child: LegendWidget(),
+          ),
         ],
       ),
       // body: ListView(
@@ -248,6 +257,60 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
       //         child: Text('Aggiungi'))
       //   ],
       // ),
+    );
+  }
+}
+
+class LegendWidget extends StatelessWidget {
+  const LegendWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final padding = max(10.0, width / 80); //16 with 1512
+    final boxWidth = max(140.0, width / 8);
+    return Container(
+      width: boxWidth,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(padding)
+      ),
+      margin: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FittedBox(
+            child
+                : Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                CircleAvatar(
+                  radius: 12,
+                  backgroundColor: Palette.activeEvent,
+                ),
+                SizedBox(width: 8),
+                Text('Evento in corso'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          FittedBox(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                CircleAvatar(
+                  radius: 12,
+                  backgroundColor: Palette.endEvent,
+                ),
+                SizedBox(width: 8),
+                Text('Evento concluso'),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

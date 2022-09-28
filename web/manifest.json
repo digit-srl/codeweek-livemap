@@ -1,0 +1,34 @@
+{
+    "name": "Codeweek Live Map",
+    "short_name": "CW Live Map",
+    "theme_color": "#0e61a3",
+    "background_color": "#2979ff",
+    "start_url": "/",
+    "display": "browser",
+    "description": "A live map of codeweek events",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/apple-icons-precomposed.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/apple-icons-precomposed.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/apple-icons-precomposed.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/apple-icons-precomposed.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

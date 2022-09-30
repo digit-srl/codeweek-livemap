@@ -12,6 +12,8 @@ class CodingEventDTO with _$CodingEventDTO {
     required String id,
     required String name,
     required String status,
+    @MyDateTimeConverter() DateTime? startDate,
+    @MyDateTimeConverter() DateTime? endDate,
     int? averageAge,
     int? participants,
     int? loc,
@@ -51,6 +53,18 @@ class TypeOfCodeConverter implements JsonConverter<TypeOfCode, String> {
 
   @override
   String toJson(TypeOfCode data) => enumToString(data) ?? 'text';
+}
+
+class MyDateTimeConverter implements JsonConverter<DateTime, String> {
+  const MyDateTimeConverter();
+
+  @override
+  DateTime fromJson(String data) {
+    return DateTime.parse(data);
+  }
+
+  @override
+  String toJson(DateTime data) => data.toIso8601String();
 }
 
 String? enumToString(Object? o) => o?.toString().split('.').last;

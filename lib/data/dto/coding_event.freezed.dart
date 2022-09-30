@@ -23,6 +23,10 @@ mixin _$CodingEventDTO {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
+  @MyDateTimeConverter()
+  DateTime? get startDate => throw _privateConstructorUsedError;
+  @MyDateTimeConverter()
+  DateTime? get endDate => throw _privateConstructorUsedError;
   int? get averageAge => throw _privateConstructorUsedError;
   int? get participants => throw _privateConstructorUsedError;
   int? get loc => throw _privateConstructorUsedError;
@@ -46,6 +50,8 @@ abstract class $CodingEventDTOCopyWith<$Res> {
       {String id,
       String name,
       String status,
+      @MyDateTimeConverter() DateTime? startDate,
+      @MyDateTimeConverter() DateTime? endDate,
       int? averageAge,
       int? participants,
       int? loc,
@@ -67,6 +73,8 @@ class _$CodingEventDTOCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? status = freezed,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
     Object? averageAge = freezed,
     Object? participants = freezed,
     Object? loc = freezed,
@@ -86,6 +94,14 @@ class _$CodingEventDTOCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      startDate: startDate == freezed
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endDate: endDate == freezed
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       averageAge: averageAge == freezed
           ? _value.averageAge
           : averageAge // ignore: cast_nullable_to_non_nullable
@@ -121,6 +137,8 @@ abstract class _$$_CodingEventDTOCopyWith<$Res>
       {String id,
       String name,
       String status,
+      @MyDateTimeConverter() DateTime? startDate,
+      @MyDateTimeConverter() DateTime? endDate,
       int? averageAge,
       int? participants,
       int? loc,
@@ -144,6 +162,8 @@ class __$$_CodingEventDTOCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? status = freezed,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
     Object? averageAge = freezed,
     Object? participants = freezed,
     Object? loc = freezed,
@@ -163,6 +183,14 @@ class __$$_CodingEventDTOCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      startDate: startDate == freezed
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endDate: endDate == freezed
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       averageAge: averageAge == freezed
           ? _value.averageAge
           : averageAge // ignore: cast_nullable_to_non_nullable
@@ -194,6 +222,8 @@ class _$_CodingEventDTO implements _CodingEventDTO {
       {required this.id,
       required this.name,
       required this.status,
+      @MyDateTimeConverter() this.startDate,
+      @MyDateTimeConverter() this.endDate,
       this.averageAge,
       this.participants,
       this.loc,
@@ -210,6 +240,12 @@ class _$_CodingEventDTO implements _CodingEventDTO {
   @override
   final String status;
   @override
+  @MyDateTimeConverter()
+  final DateTime? startDate;
+  @override
+  @MyDateTimeConverter()
+  final DateTime? endDate;
+  @override
   final int? averageAge;
   @override
   final int? participants;
@@ -224,7 +260,7 @@ class _$_CodingEventDTO implements _CodingEventDTO {
 
   @override
   String toString() {
-    return 'CodingEventDTO(id: $id, name: $name, status: $status, averageAge: $averageAge, participants: $participants, loc: $loc, typeOfCode: $typeOfCode, location: $location)';
+    return 'CodingEventDTO(id: $id, name: $name, status: $status, startDate: $startDate, endDate: $endDate, averageAge: $averageAge, participants: $participants, loc: $loc, typeOfCode: $typeOfCode, location: $location)';
   }
 
   @override
@@ -235,6 +271,8 @@ class _$_CodingEventDTO implements _CodingEventDTO {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality().equals(other.startDate, startDate) &&
+            const DeepCollectionEquality().equals(other.endDate, endDate) &&
             const DeepCollectionEquality()
                 .equals(other.averageAge, averageAge) &&
             const DeepCollectionEquality()
@@ -252,6 +290,8 @@ class _$_CodingEventDTO implements _CodingEventDTO {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(startDate),
+      const DeepCollectionEquality().hash(endDate),
       const DeepCollectionEquality().hash(averageAge),
       const DeepCollectionEquality().hash(participants),
       const DeepCollectionEquality().hash(loc),
@@ -276,6 +316,8 @@ abstract class _CodingEventDTO implements CodingEventDTO {
           {required final String id,
           required final String name,
           required final String status,
+          @MyDateTimeConverter() final DateTime? startDate,
+          @MyDateTimeConverter() final DateTime? endDate,
           final int? averageAge,
           final int? participants,
           final int? loc,
@@ -292,6 +334,12 @@ abstract class _CodingEventDTO implements CodingEventDTO {
   String get name;
   @override
   String get status;
+  @override
+  @MyDateTimeConverter()
+  DateTime? get startDate;
+  @override
+  @MyDateTimeConverter()
+  DateTime? get endDate;
   @override
   int? get averageAge;
   @override

@@ -62,9 +62,15 @@ class AddEventScreen extends ConsumerWidget {
             // alignment: Alignment.center,
             child: state.when(
               initial: () => const AddEventUrl(),
-              eventVerified:
-                  (String id, String name, double latitude, double longitude) =>
-                      StartEvent(
+              eventVerified: (
+                String id,
+                String name,
+                double latitude,
+                double longitude,
+                canStart,
+                message,
+              ) =>
+                  StartEvent(
                 eventId: id,
                 name: name,
                 latitude: latitude,
@@ -82,12 +88,7 @@ class AddEventScreen extends ConsumerWidget {
                       st?.toString() ?? '',
                       maxLines: 10,
                     ),
-                  TextButton(
-                    onPressed: () {
-                      ref.read(addEventNotifierProvider.notifier).reset();
-                    },
-                    child: const Text('Torna al form'),
-                  ),
+                  const BackToFormButton(),
                 ],
               ),
               creationSuccessful: (eventId) => GenericMessage(
@@ -109,23 +110,9 @@ class AddEventScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              terminationSuccessful: () => GenericMessage(
-                message: 'Evento terminato correttamente',
-                extra: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 16),
-                    const Text('oppure'),
-                    const SizedBox(height: 8),
-                    TextButton(
-                      onPressed: () {
-                        ref.read(addEventNotifierProvider.notifier).reset();
-                      },
-                      child: const Text('Torna al form'),
-                    ),
-                  ],
-                ),
-              ),
+              terminationSuccessful: () => const GenericMessage(
+                  message: 'Evento terminato correttamente',
+                  extra: BackToFormButton()),
               closeEventForm: (eventId) => CloseEventFormWidget(
                 eventId: eventId,
               ),
@@ -144,6 +131,15 @@ class AddEventScreen extends ConsumerWidget {
                   width: 200,
                   height: 200,
                   child: Center(child: CircularProgressIndicator()),
+                );
+              },
+              oldEvent: () {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Text(
+                        'Siamo spiacenti, l\'evento inserito non è dell\'anno corrente'),
+                  ],
                 );
               },
             ),
@@ -275,6 +271,7 @@ class StartEvent extends ConsumerWidget {
           },
           child: const Text('Avvia'),
         ),
+        const BackToFormButton(),
       ],
     );
   }
@@ -321,17 +318,31 @@ class EventOnlineWidget extends ConsumerWidget {
           },
           child: Text(event.status == 'off' ? 'Vai alla mappa' : 'Termina'),
         ),
-        if (event.status == 'off') ...[
-          const SizedBox(height: 16),
-          const Text('oppure'),
-          const SizedBox(height: 8),
-          TextButton(
-            onPressed: () {
-              ref.read(addEventNotifierProvider.notifier).reset();
-            },
-            child: const Text('Torna al form'),
-          ),
-        ]
+        // if (event.status == 'off') ...[
+        const BackToFormButton()
+        // ]
+      ],
+    );
+  }
+}
+
+class BackToFormButton extends ConsumerWidget {
+  const BackToFormButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(height: 16),
+        const Text('oppure'),
+        const SizedBox(height: 8),
+        TextButton(
+          onPressed: () {
+            ref.read(addEventNotifierProvider.notifier).reset();
+          },
+          child: const Text('Torna al form'),
+        ),
       ],
     );
   }

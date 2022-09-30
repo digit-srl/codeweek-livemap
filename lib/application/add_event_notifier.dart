@@ -12,6 +12,10 @@ import '../cloud.dart';
 import '../consts.dart';
 import '../data/dto/event.dart';
 
+extension DateTimeX on DateTime {
+  DateTime get midnight => DateTime(year, month, day);
+}
+
 const pattern = r'https?://(?:www\.)?codeweek\.eu/view/([0-9]*)/.*';
 
 final eventReg = RegExp(pattern);
@@ -36,6 +40,7 @@ class AddEventNotifier extends StateNotifier<AddEventState> {
     );
   }
 
+  // final format = DateFormat();
   CodingEventDTO? cacheEvent;
   final dio = Dio();
 
@@ -61,14 +66,29 @@ class AddEventNotifier extends StateNotifier<AddEventState> {
           final map = Map<String, dynamic>.from(res.data);
           final d = CheckUrlResponse.fromJson(map);
           cacheEvent = d.event;
-          if (d.status == 'exists') {
+          if (d.status == 'old_event') {
+            state = const OldEvent();
+          } else if (d.status == 'exists') {
             state = EventOnline(event: d.event!);
           } else if (d.status == 'not_exists' && d.event != null) {
+            /*final start = d.event!.startDate!.midnight;
+            final end = d.event!.endDate!.midnight;
+            final now = DateTime.now();
+
+            if (now.isAfter(end)) {
+              //nuovo stato di chiusura
+              return;
+            }
+            final canStart = now.isAfter(start) && now.isBefore(end);
+            String? message;*/
+
             state = AddEventVerified(
               id: eventId,
               name: d.event!.name,
               latitude: d.event!.location.latitude,
               longitude: d.event!.location.longitude,
+              canStart: true,
+              // message: canStart ? null: 'Potrai aprire l\'evento a partire dal ${start}',
             );
           }
         } else {

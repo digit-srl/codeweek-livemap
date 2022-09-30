@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cw_live_map/application/map_stream.dart';
 import 'package:cw_live_map/cloud.dart';
@@ -33,6 +34,8 @@ class RealtimeMap extends StatefulHookConsumerWidget {
 
 class _RealtimeMapState extends ConsumerState<RealtimeMap> {
   final markers = <Marker>{};
+  final group = AutoSizeGroup();
+  final group2 = AutoSizeGroup();
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +105,9 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
                   final stats = ref.watch(statusStreamProvider).value;
                   final count = stats?.liveEventsCount.toString() ?? '-';
                   final loc = stats?.loc.toString() ?? '-';
+                  final p = stats?.participants.toString() ?? '-';
                   final width = MediaQuery.of(context).size.width;
-                  final padding = max(10.0, width / 80); //16 with 1512
+                  final padding = max(11.0, width / 70); //16 with 1512
                   final boxWidth = max(200.0, width / 4);
                   print(
                       'width: $width, boxWidth: $boxWidth, padding: $padding');
@@ -134,25 +138,33 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              FittedBox(
-                                child: Text(
-                                  'Attività in corso: $count',
-                                  maxLines: 1,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4
-                                      ?.copyWith(color: Colors.white),
-                                ),
+                              AutoSizeText(
+                                'Attività in corso: $count',
+                                maxLines: 1,
+                                group: group,minFontSize: 8,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4
+                                    ?.copyWith(color: Colors.white),
                               ),
-                              FittedBox(
-                                child: Text(
-                                  'Righe di codice: $loc',
-                                  maxLines: 1,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4
-                                      ?.copyWith(color: Colors.white),
-                                ),
+                              AutoSizeText(
+                                'Righe di codice: $loc',
+                                maxLines: 1,
+                                group: group,
+                                minFontSize: 8,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4
+                                    ?.copyWith(color: Colors.white),
+                              ),
+                              AutoSizeText(
+                                'Partecipanti: $p',
+                                maxLines: 1,
+                                group: group,minFontSize: 8,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4
+                                    ?.copyWith(color: Colors.white),
                               ),
                             ],
                           ),
@@ -168,9 +180,11 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
                   );
                 },
               )),
-          const Align(
+          Align(
             alignment: Alignment.bottomLeft,
-            child: LegendWidget(),
+            child: LegendWidget(
+              group: group2,
+            ),
           ),
         ],
       ),
@@ -262,7 +276,12 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
 }
 
 class LegendWidget extends StatelessWidget {
-  const LegendWidget({Key? key}) : super(key: key);
+  final AutoSizeGroup group;
+
+  const LegendWidget({
+    Key? key,
+    required this.group,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -272,9 +291,7 @@ class LegendWidget extends StatelessWidget {
     return Container(
       width: boxWidth,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(padding)
-      ),
+          color: Colors.white, borderRadius: BorderRadius.circular(padding)),
       margin: const EdgeInsets.all(24),
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -282,16 +299,21 @@ class LegendWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           FittedBox(
-            child
-                : Row(
+            child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                CircleAvatar(
-                  radius: 12,
-                  backgroundColor: Palette.activeEvent,
+              children: [
+                Transform.rotate(
+                  angle: 20 * pi / 180,
+                  child: Image.asset(
+                    'assets/fiaccola.png',
+                    width: 24,
+                  ),
                 ),
-                SizedBox(width: 8),
-                Text('Evento in corso'),
+                const SizedBox(width: 8),
+                AutoSizeText(
+                  'EFT CodeToCode',
+                  group: group,
+                ),
               ],
             ),
           ),
@@ -299,16 +321,36 @@ class LegendWidget extends StatelessWidget {
           FittedBox(
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
+                CircleAvatar(
+                  radius: 12,
+                  backgroundColor: Palette.activeEvent,
+                ),
+                SizedBox(width: 8),
+                AutoSizeText(
+                  'Attività in corso',
+                  group: group,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          FittedBox(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 CircleAvatar(
                   radius: 12,
                   backgroundColor: Palette.endEvent,
                 ),
                 SizedBox(width: 8),
-                Text('Evento concluso'),
+                AutoSizeText(
+                  'Attività conclusa',
+                  group: group,
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

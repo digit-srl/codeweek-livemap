@@ -22,6 +22,7 @@ StatsDTO _$StatsDTOFromJson(Map<String, dynamic> json) {
 mixin _$StatsDTO {
   int get liveEventsCount => throw _privateConstructorUsedError;
   int get loc => throw _privateConstructorUsedError;
+  int get participants => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +34,7 @@ mixin _$StatsDTO {
 abstract class $StatsDTOCopyWith<$Res> {
   factory $StatsDTOCopyWith(StatsDTO value, $Res Function(StatsDTO) then) =
       _$StatsDTOCopyWithImpl<$Res>;
-  $Res call({int liveEventsCount, int loc});
+  $Res call({int liveEventsCount, int loc, int participants});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$StatsDTOCopyWithImpl<$Res> implements $StatsDTOCopyWith<$Res> {
   $Res call({
     Object? liveEventsCount = freezed,
     Object? loc = freezed,
+    Object? participants = freezed,
   }) {
     return _then(_value.copyWith(
       liveEventsCount: liveEventsCount == freezed
@@ -57,6 +59,10 @@ class _$StatsDTOCopyWithImpl<$Res> implements $StatsDTOCopyWith<$Res> {
       loc: loc == freezed
           ? _value.loc
           : loc // ignore: cast_nullable_to_non_nullable
+              as int,
+      participants: participants == freezed
+          ? _value.participants
+          : participants // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -68,7 +74,7 @@ abstract class _$$_StatsDTOCopyWith<$Res> implements $StatsDTOCopyWith<$Res> {
           _$_StatsDTO value, $Res Function(_$_StatsDTO) then) =
       __$$_StatsDTOCopyWithImpl<$Res>;
   @override
-  $Res call({int liveEventsCount, int loc});
+  $Res call({int liveEventsCount, int loc, int participants});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$_StatsDTOCopyWithImpl<$Res> extends _$StatsDTOCopyWithImpl<$Res>
   $Res call({
     Object? liveEventsCount = freezed,
     Object? loc = freezed,
+    Object? participants = freezed,
   }) {
     return _then(_$_StatsDTO(
       liveEventsCount: liveEventsCount == freezed
@@ -95,6 +102,10 @@ class __$$_StatsDTOCopyWithImpl<$Res> extends _$StatsDTOCopyWithImpl<$Res>
           ? _value.loc
           : loc // ignore: cast_nullable_to_non_nullable
               as int,
+      participants: participants == freezed
+          ? _value.participants
+          : participants // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -102,7 +113,10 @@ class __$$_StatsDTOCopyWithImpl<$Res> extends _$StatsDTOCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_StatsDTO implements _StatsDTO {
-  const _$_StatsDTO({required this.liveEventsCount, required this.loc});
+  const _$_StatsDTO(
+      {required this.liveEventsCount,
+      required this.loc,
+      required this.participants});
 
   factory _$_StatsDTO.fromJson(Map<String, dynamic> json) =>
       _$$_StatsDTOFromJson(json);
@@ -111,10 +125,12 @@ class _$_StatsDTO implements _StatsDTO {
   final int liveEventsCount;
   @override
   final int loc;
+  @override
+  final int participants;
 
   @override
   String toString() {
-    return 'StatsDTO(liveEventsCount: $liveEventsCount, loc: $loc)';
+    return 'StatsDTO(liveEventsCount: $liveEventsCount, loc: $loc, participants: $participants)';
   }
 
   @override
@@ -124,7 +140,9 @@ class _$_StatsDTO implements _StatsDTO {
             other is _$_StatsDTO &&
             const DeepCollectionEquality()
                 .equals(other.liveEventsCount, liveEventsCount) &&
-            const DeepCollectionEquality().equals(other.loc, loc));
+            const DeepCollectionEquality().equals(other.loc, loc) &&
+            const DeepCollectionEquality()
+                .equals(other.participants, participants));
   }
 
   @JsonKey(ignore: true)
@@ -132,7 +150,8 @@ class _$_StatsDTO implements _StatsDTO {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(liveEventsCount),
-      const DeepCollectionEquality().hash(loc));
+      const DeepCollectionEquality().hash(loc),
+      const DeepCollectionEquality().hash(participants));
 
   @JsonKey(ignore: true)
   @override
@@ -150,7 +169,8 @@ class _$_StatsDTO implements _StatsDTO {
 abstract class _StatsDTO implements StatsDTO {
   const factory _StatsDTO(
       {required final int liveEventsCount,
-      required final int loc}) = _$_StatsDTO;
+      required final int loc,
+      required final int participants}) = _$_StatsDTO;
 
   factory _StatsDTO.fromJson(Map<String, dynamic> json) = _$_StatsDTO.fromJson;
 
@@ -158,6 +178,8 @@ abstract class _StatsDTO implements StatsDTO {
   int get liveEventsCount;
   @override
   int get loc;
+  @override
+  int get participants;
   @override
   @JsonKey(ignore: true)
   _$$_StatsDTOCopyWith<_$_StatsDTO> get copyWith =>

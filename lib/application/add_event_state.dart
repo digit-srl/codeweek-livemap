@@ -13,6 +13,8 @@ class AddEventState with _$AddEventState {
     required String name,
     required double latitude,
     required double longitude,
+    required bool canStart,
+    String? message,
   }) = AddEventVerified;
 
   const factory AddEventState.eventOnline({
@@ -20,6 +22,7 @@ class AddEventState with _$AddEventState {
   }) = EventOnline;
 
   const factory AddEventState.initial() = AddEventInitial;
+  const factory AddEventState.oldEvent() = OldEvent;
   const factory AddEventState.waitingOtpCode(String eventId, OtpMode mode, {String? error}) = WaitingOtpCode;
   const factory AddEventState.creationSuccessful(String eventId) = EventCreationSuccessful;
   const factory AddEventState.closeEventForm(String eventId) = CloseEventForm;

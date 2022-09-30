@@ -18,11 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AddEventState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id, String name, double latitude, double longitude)
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
         eventVerified,
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
+    required TResult Function() oldEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -35,10 +36,12 @@ mixin _$AddEventState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -50,10 +53,12 @@ mixin _$AddEventState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -69,6 +74,7 @@ mixin _$AddEventState {
     required TResult Function(AddEventVerified value) eventVerified,
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -83,6 +89,7 @@ mixin _$AddEventState {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -96,6 +103,7 @@ mixin _$AddEventState {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -129,7 +137,13 @@ abstract class _$$AddEventVerifiedCopyWith<$Res> {
   factory _$$AddEventVerifiedCopyWith(
           _$AddEventVerified value, $Res Function(_$AddEventVerified) then) =
       __$$AddEventVerifiedCopyWithImpl<$Res>;
-  $Res call({String id, String name, double latitude, double longitude});
+  $Res call(
+      {String id,
+      String name,
+      double latitude,
+      double longitude,
+      bool canStart,
+      String? message});
 }
 
 /// @nodoc
@@ -149,6 +163,8 @@ class __$$AddEventVerifiedCopyWithImpl<$Res>
     Object? name = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? canStart = freezed,
+    Object? message = freezed,
   }) {
     return _then(_$AddEventVerified(
       id: id == freezed
@@ -167,6 +183,14 @@ class __$$AddEventVerifiedCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
+      canStart: canStart == freezed
+          ? _value.canStart
+          : canStart // ignore: cast_nullable_to_non_nullable
+              as bool,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -178,7 +202,9 @@ class _$AddEventVerified implements AddEventVerified {
       {required this.id,
       required this.name,
       required this.latitude,
-      required this.longitude});
+      required this.longitude,
+      required this.canStart,
+      this.message});
 
   @override
   final String id;
@@ -188,10 +214,14 @@ class _$AddEventVerified implements AddEventVerified {
   final double latitude;
   @override
   final double longitude;
+  @override
+  final bool canStart;
+  @override
+  final String? message;
 
   @override
   String toString() {
-    return 'AddEventState.eventVerified(id: $id, name: $name, latitude: $latitude, longitude: $longitude)';
+    return 'AddEventState.eventVerified(id: $id, name: $name, latitude: $latitude, longitude: $longitude, canStart: $canStart, message: $message)';
   }
 
   @override
@@ -202,7 +232,9 @@ class _$AddEventVerified implements AddEventVerified {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.latitude, latitude) &&
-            const DeepCollectionEquality().equals(other.longitude, longitude));
+            const DeepCollectionEquality().equals(other.longitude, longitude) &&
+            const DeepCollectionEquality().equals(other.canStart, canStart) &&
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
@@ -211,7 +243,9 @@ class _$AddEventVerified implements AddEventVerified {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(latitude),
-      const DeepCollectionEquality().hash(longitude));
+      const DeepCollectionEquality().hash(longitude),
+      const DeepCollectionEquality().hash(canStart),
+      const DeepCollectionEquality().hash(message));
 
   @JsonKey(ignore: true)
   @override
@@ -221,11 +255,12 @@ class _$AddEventVerified implements AddEventVerified {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id, String name, double latitude, double longitude)
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
         eventVerified,
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
+    required TResult Function() oldEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -235,16 +270,18 @@ class _$AddEventVerified implements AddEventVerified {
     required TResult Function(String message, Object? error, StackTrace? st)
         error,
   }) {
-    return eventVerified(id, name, latitude, longitude);
+    return eventVerified(id, name, latitude, longitude, canStart, message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -253,16 +290,19 @@ class _$AddEventVerified implements AddEventVerified {
     TResult Function()? loading,
     TResult Function(String message, Object? error, StackTrace? st)? error,
   }) {
-    return eventVerified?.call(id, name, latitude, longitude);
+    return eventVerified?.call(
+        id, name, latitude, longitude, canStart, message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -273,7 +313,7 @@ class _$AddEventVerified implements AddEventVerified {
     required TResult orElse(),
   }) {
     if (eventVerified != null) {
-      return eventVerified(id, name, latitude, longitude);
+      return eventVerified(id, name, latitude, longitude, canStart, message);
     }
     return orElse();
   }
@@ -284,6 +324,7 @@ class _$AddEventVerified implements AddEventVerified {
     required TResult Function(AddEventVerified value) eventVerified,
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -301,6 +342,7 @@ class _$AddEventVerified implements AddEventVerified {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -317,6 +359,7 @@ class _$AddEventVerified implements AddEventVerified {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -337,12 +380,16 @@ abstract class AddEventVerified implements AddEventState {
       {required final String id,
       required final String name,
       required final double latitude,
-      required final double longitude}) = _$AddEventVerified;
+      required final double longitude,
+      required final bool canStart,
+      final String? message}) = _$AddEventVerified;
 
   String get id;
   String get name;
   double get latitude;
   double get longitude;
+  bool get canStart;
+  String? get message;
   @JsonKey(ignore: true)
   _$$AddEventVerifiedCopyWith<_$AddEventVerified> get copyWith =>
       throw _privateConstructorUsedError;
@@ -422,11 +469,12 @@ class _$EventOnline implements EventOnline {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id, String name, double latitude, double longitude)
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
         eventVerified,
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
+    required TResult Function() oldEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -442,10 +490,12 @@ class _$EventOnline implements EventOnline {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -460,10 +510,12 @@ class _$EventOnline implements EventOnline {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -485,6 +537,7 @@ class _$EventOnline implements EventOnline {
     required TResult Function(AddEventVerified value) eventVerified,
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -502,6 +555,7 @@ class _$EventOnline implements EventOnline {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -518,6 +572,7 @@ class _$EventOnline implements EventOnline {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -584,11 +639,12 @@ class _$AddEventInitial implements AddEventInitial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id, String name, double latitude, double longitude)
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
         eventVerified,
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
+    required TResult Function() oldEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -604,10 +660,12 @@ class _$AddEventInitial implements AddEventInitial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -622,10 +680,12 @@ class _$AddEventInitial implements AddEventInitial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -647,6 +707,7 @@ class _$AddEventInitial implements AddEventInitial {
     required TResult Function(AddEventVerified value) eventVerified,
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -664,6 +725,7 @@ class _$AddEventInitial implements AddEventInitial {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -680,6 +742,7 @@ class _$AddEventInitial implements AddEventInitial {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -697,6 +760,168 @@ class _$AddEventInitial implements AddEventInitial {
 
 abstract class AddEventInitial implements AddEventState {
   const factory AddEventInitial() = _$AddEventInitial;
+}
+
+/// @nodoc
+abstract class _$$OldEventCopyWith<$Res> {
+  factory _$$OldEventCopyWith(
+          _$OldEvent value, $Res Function(_$OldEvent) then) =
+      __$$OldEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$OldEventCopyWithImpl<$Res> extends _$AddEventStateCopyWithImpl<$Res>
+    implements _$$OldEventCopyWith<$Res> {
+  __$$OldEventCopyWithImpl(_$OldEvent _value, $Res Function(_$OldEvent) _then)
+      : super(_value, (v) => _then(v as _$OldEvent));
+
+  @override
+  _$OldEvent get _value => super._value as _$OldEvent;
+}
+
+/// @nodoc
+
+class _$OldEvent implements OldEvent {
+  const _$OldEvent();
+
+  @override
+  String toString() {
+    return 'AddEventState.oldEvent()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$OldEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
+        eventVerified,
+    required TResult Function(CodingEventDTO event) eventOnline,
+    required TResult Function() initial,
+    required TResult Function() oldEvent,
+    required TResult Function(String eventId, OtpMode mode, String? error)
+        waitingOtpCode,
+    required TResult Function(String eventId) creationSuccessful,
+    required TResult Function(String eventId) closeEventForm,
+    required TResult Function() terminationSuccessful,
+    required TResult Function() loading,
+    required TResult Function(String message, Object? error, StackTrace? st)
+        error,
+  }) {
+    return oldEvent();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
+        eventVerified,
+    TResult Function(CodingEventDTO event)? eventOnline,
+    TResult Function()? initial,
+    TResult Function()? oldEvent,
+    TResult Function(String eventId, OtpMode mode, String? error)?
+        waitingOtpCode,
+    TResult Function(String eventId)? creationSuccessful,
+    TResult Function(String eventId)? closeEventForm,
+    TResult Function()? terminationSuccessful,
+    TResult Function()? loading,
+    TResult Function(String message, Object? error, StackTrace? st)? error,
+  }) {
+    return oldEvent?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
+        eventVerified,
+    TResult Function(CodingEventDTO event)? eventOnline,
+    TResult Function()? initial,
+    TResult Function()? oldEvent,
+    TResult Function(String eventId, OtpMode mode, String? error)?
+        waitingOtpCode,
+    TResult Function(String eventId)? creationSuccessful,
+    TResult Function(String eventId)? closeEventForm,
+    TResult Function()? terminationSuccessful,
+    TResult Function()? loading,
+    TResult Function(String message, Object? error, StackTrace? st)? error,
+    required TResult orElse(),
+  }) {
+    if (oldEvent != null) {
+      return oldEvent();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddEventVerified value) eventVerified,
+    required TResult Function(EventOnline value) eventOnline,
+    required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(WaitingOtpCode value) waitingOtpCode,
+    required TResult Function(EventCreationSuccessful value) creationSuccessful,
+    required TResult Function(CloseEventForm value) closeEventForm,
+    required TResult Function(EventTerminationSuccessful value)
+        terminationSuccessful,
+    required TResult Function(AddEventLoading value) loading,
+    required TResult Function(AddEventError value) error,
+  }) {
+    return oldEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AddEventVerified value)? eventVerified,
+    TResult Function(EventOnline value)? eventOnline,
+    TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
+    TResult Function(WaitingOtpCode value)? waitingOtpCode,
+    TResult Function(EventCreationSuccessful value)? creationSuccessful,
+    TResult Function(CloseEventForm value)? closeEventForm,
+    TResult Function(EventTerminationSuccessful value)? terminationSuccessful,
+    TResult Function(AddEventLoading value)? loading,
+    TResult Function(AddEventError value)? error,
+  }) {
+    return oldEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddEventVerified value)? eventVerified,
+    TResult Function(EventOnline value)? eventOnline,
+    TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
+    TResult Function(WaitingOtpCode value)? waitingOtpCode,
+    TResult Function(EventCreationSuccessful value)? creationSuccessful,
+    TResult Function(CloseEventForm value)? closeEventForm,
+    TResult Function(EventTerminationSuccessful value)? terminationSuccessful,
+    TResult Function(AddEventLoading value)? loading,
+    TResult Function(AddEventError value)? error,
+    required TResult orElse(),
+  }) {
+    if (oldEvent != null) {
+      return oldEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class OldEvent implements AddEventState {
+  const factory OldEvent() = _$OldEvent;
 }
 
 /// @nodoc
@@ -783,11 +1008,12 @@ class _$WaitingOtpCode implements WaitingOtpCode {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id, String name, double latitude, double longitude)
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
         eventVerified,
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
+    required TResult Function() oldEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -803,10 +1029,12 @@ class _$WaitingOtpCode implements WaitingOtpCode {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -821,10 +1049,12 @@ class _$WaitingOtpCode implements WaitingOtpCode {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -846,6 +1076,7 @@ class _$WaitingOtpCode implements WaitingOtpCode {
     required TResult Function(AddEventVerified value) eventVerified,
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -863,6 +1094,7 @@ class _$WaitingOtpCode implements WaitingOtpCode {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -879,6 +1111,7 @@ class _$WaitingOtpCode implements WaitingOtpCode {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -973,11 +1206,12 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id, String name, double latitude, double longitude)
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
         eventVerified,
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
+    required TResult Function() oldEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -993,10 +1227,12 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1011,10 +1247,12 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1036,6 +1274,7 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
     required TResult Function(AddEventVerified value) eventVerified,
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -1053,6 +1292,7 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1069,6 +1309,7 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1159,11 +1400,12 @@ class _$CloseEventForm implements CloseEventForm {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id, String name, double latitude, double longitude)
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
         eventVerified,
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
+    required TResult Function() oldEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -1179,10 +1421,12 @@ class _$CloseEventForm implements CloseEventForm {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1197,10 +1441,12 @@ class _$CloseEventForm implements CloseEventForm {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1222,6 +1468,7 @@ class _$CloseEventForm implements CloseEventForm {
     required TResult Function(AddEventVerified value) eventVerified,
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -1239,6 +1486,7 @@ class _$CloseEventForm implements CloseEventForm {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1255,6 +1503,7 @@ class _$CloseEventForm implements CloseEventForm {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1324,11 +1573,12 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id, String name, double latitude, double longitude)
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
         eventVerified,
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
+    required TResult Function() oldEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -1344,10 +1594,12 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1362,10 +1614,12 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1387,6 +1641,7 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
     required TResult Function(AddEventVerified value) eventVerified,
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -1404,6 +1659,7 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1420,6 +1676,7 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1480,11 +1737,12 @@ class _$AddEventLoading implements AddEventLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id, String name, double latitude, double longitude)
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
         eventVerified,
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
+    required TResult Function() oldEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -1500,10 +1758,12 @@ class _$AddEventLoading implements AddEventLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1518,10 +1778,12 @@ class _$AddEventLoading implements AddEventLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1543,6 +1805,7 @@ class _$AddEventLoading implements AddEventLoading {
     required TResult Function(AddEventVerified value) eventVerified,
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -1560,6 +1823,7 @@ class _$AddEventLoading implements AddEventLoading {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1576,6 +1840,7 @@ class _$AddEventLoading implements AddEventLoading {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1676,11 +1941,12 @@ class _$AddEventError implements AddEventError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id, String name, double latitude, double longitude)
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
         eventVerified,
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
+    required TResult Function() oldEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -1696,10 +1962,12 @@ class _$AddEventError implements AddEventError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1714,10 +1982,12 @@ class _$AddEventError implements AddEventError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String name, double latitude, double longitude)?
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
         eventVerified,
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
+    TResult Function()? oldEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1739,6 +2009,7 @@ class _$AddEventError implements AddEventError {
     required TResult Function(AddEventVerified value) eventVerified,
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -1756,6 +2027,7 @@ class _$AddEventError implements AddEventError {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1772,6 +2044,7 @@ class _$AddEventError implements AddEventError {
     TResult Function(AddEventVerified value)? eventVerified,
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,

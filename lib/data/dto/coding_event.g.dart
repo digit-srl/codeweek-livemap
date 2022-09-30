@@ -11,6 +11,10 @@ _$_CodingEventDTO _$$_CodingEventDTOFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       name: json['name'] as String,
       status: json['status'] as String,
+      startDate: _$JsonConverterFromJson<String, DateTime>(
+          json['startDate'], const MyDateTimeConverter().fromJson),
+      endDate: _$JsonConverterFromJson<String, DateTime>(
+          json['endDate'], const MyDateTimeConverter().fromJson),
       averageAge: json['averageAge'] as int?,
       participants: json['participants'] as int?,
       loc: json['loc'] as int?,
@@ -24,6 +28,10 @@ Map<String, dynamic> _$$_CodingEventDTOToJson(_$_CodingEventDTO instance) =>
       'id': instance.id,
       'name': instance.name,
       'status': instance.status,
+      'startDate': _$JsonConverterToJson<String, DateTime>(
+          instance.startDate, const MyDateTimeConverter().toJson),
+      'endDate': _$JsonConverterToJson<String, DateTime>(
+          instance.endDate, const MyDateTimeConverter().toJson),
       'averageAge': instance.averageAge,
       'participants': instance.participants,
       'loc': instance.loc,

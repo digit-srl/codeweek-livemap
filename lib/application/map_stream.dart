@@ -5,6 +5,7 @@ import 'package:cw_live_map/cloud.dart';
 import 'package:cw_live_map/data/dto/coding_event.dart';
 import 'package:cw_live_map/data/dto/stats.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -44,13 +45,16 @@ final eventStreamProvider = StreamProvider<List<CodingEventDTO>>((ref) async* {
 final markersProvider = FutureProvider<Set<Marker>>((ref) async {
   final list = ref.watch(eventStreamProvider).value ?? [];
 
+  fiaccola ??= await BitmapDescriptor.fromAssetImage(ImageConfiguration(),'assets/fiaccola.png');
   livePin ??= await getCustomPinWithBorder(20);
   offPin ??= await getCustomPinWithBorder(20,
       baseColor: Colors.black.withOpacity(0.4));
+
   return list
       .map(
         (e) => Marker(
           markerId: MarkerId(e.id),
+          // icon: fiaccola!,
           icon: e.status == 'on' ? livePin! : offPin!,
           infoWindow: InfoWindow(
             title: e.name,
@@ -67,6 +71,7 @@ final markersProvider = FutureProvider<Set<Marker>>((ref) async {
 
 BitmapDescriptor? livePin;
 BitmapDescriptor? offPin;
+BitmapDescriptor? fiaccola;
 
 Future<BitmapDescriptor?> getCustomPinWithBorder(
   int sizeInt, {

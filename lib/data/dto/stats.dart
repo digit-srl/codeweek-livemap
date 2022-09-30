@@ -9,6 +9,7 @@ class StatsDTO with _$StatsDTO {
   const factory StatsDTO({
     required int liveEventsCount,
     required int loc,
+    required int participants,
   }) = _StatsDTO;
 
   factory StatsDTO.fromJson(Map<String, Object?> json) =>

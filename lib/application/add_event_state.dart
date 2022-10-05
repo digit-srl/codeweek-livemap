@@ -23,6 +23,7 @@ class AddEventState with _$AddEventState {
 
   const factory AddEventState.initial() = AddEventInitial;
   const factory AddEventState.oldEvent() = OldEvent;
+  const factory AddEventState.pastEvent(CodingEventDTO eventId) = PastEvent;
   const factory AddEventState.waitingOtpCode(String eventId, OtpMode mode, {String? error}) = WaitingOtpCode;
   const factory AddEventState.creationSuccessful(String eventId) = EventCreationSuccessful;
   const factory AddEventState.closeEventForm(String eventId) = CloseEventForm;

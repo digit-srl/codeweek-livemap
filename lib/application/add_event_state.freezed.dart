@@ -24,6 +24,7 @@ mixin _$AddEventState {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -42,6 +43,7 @@ mixin _$AddEventState {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -59,6 +61,7 @@ mixin _$AddEventState {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -75,6 +78,7 @@ mixin _$AddEventState {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -90,6 +94,7 @@ mixin _$AddEventState {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -104,6 +109,7 @@ mixin _$AddEventState {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -261,6 +267,7 @@ class _$AddEventVerified implements AddEventVerified {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -282,6 +289,7 @@ class _$AddEventVerified implements AddEventVerified {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -303,6 +311,7 @@ class _$AddEventVerified implements AddEventVerified {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -325,6 +334,7 @@ class _$AddEventVerified implements AddEventVerified {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -343,6 +353,7 @@ class _$AddEventVerified implements AddEventVerified {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -360,6 +371,7 @@ class _$AddEventVerified implements AddEventVerified {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -475,6 +487,7 @@ class _$EventOnline implements EventOnline {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -496,6 +509,7 @@ class _$EventOnline implements EventOnline {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -516,6 +530,7 @@ class _$EventOnline implements EventOnline {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -538,6 +553,7 @@ class _$EventOnline implements EventOnline {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -556,6 +572,7 @@ class _$EventOnline implements EventOnline {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -573,6 +590,7 @@ class _$EventOnline implements EventOnline {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -645,6 +663,7 @@ class _$AddEventInitial implements AddEventInitial {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -666,6 +685,7 @@ class _$AddEventInitial implements AddEventInitial {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -686,6 +706,7 @@ class _$AddEventInitial implements AddEventInitial {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -708,6 +729,7 @@ class _$AddEventInitial implements AddEventInitial {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -726,6 +748,7 @@ class _$AddEventInitial implements AddEventInitial {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -743,6 +766,7 @@ class _$AddEventInitial implements AddEventInitial {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -807,6 +831,7 @@ class _$OldEvent implements OldEvent {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -828,6 +853,7 @@ class _$OldEvent implements OldEvent {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -848,6 +874,7 @@ class _$OldEvent implements OldEvent {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -870,6 +897,7 @@ class _$OldEvent implements OldEvent {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -888,6 +916,7 @@ class _$OldEvent implements OldEvent {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -905,6 +934,7 @@ class _$OldEvent implements OldEvent {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -922,6 +952,213 @@ class _$OldEvent implements OldEvent {
 
 abstract class OldEvent implements AddEventState {
   const factory OldEvent() = _$OldEvent;
+}
+
+/// @nodoc
+abstract class _$$PastEventCopyWith<$Res> {
+  factory _$$PastEventCopyWith(
+          _$PastEvent value, $Res Function(_$PastEvent) then) =
+      __$$PastEventCopyWithImpl<$Res>;
+  $Res call({CodingEventDTO eventId});
+
+  $CodingEventDTOCopyWith<$Res> get eventId;
+}
+
+/// @nodoc
+class __$$PastEventCopyWithImpl<$Res> extends _$AddEventStateCopyWithImpl<$Res>
+    implements _$$PastEventCopyWith<$Res> {
+  __$$PastEventCopyWithImpl(
+      _$PastEvent _value, $Res Function(_$PastEvent) _then)
+      : super(_value, (v) => _then(v as _$PastEvent));
+
+  @override
+  _$PastEvent get _value => super._value as _$PastEvent;
+
+  @override
+  $Res call({
+    Object? eventId = freezed,
+  }) {
+    return _then(_$PastEvent(
+      eventId == freezed
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as CodingEventDTO,
+    ));
+  }
+
+  @override
+  $CodingEventDTOCopyWith<$Res> get eventId {
+    return $CodingEventDTOCopyWith<$Res>(_value.eventId, (value) {
+      return _then(_value.copyWith(eventId: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$PastEvent implements PastEvent {
+  const _$PastEvent(this.eventId);
+
+  @override
+  final CodingEventDTO eventId;
+
+  @override
+  String toString() {
+    return 'AddEventState.pastEvent(eventId: $eventId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PastEvent &&
+            const DeepCollectionEquality().equals(other.eventId, eventId));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(eventId));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$PastEventCopyWith<_$PastEvent> get copyWith =>
+      __$$PastEventCopyWithImpl<_$PastEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String id, String name, double latitude,
+            double longitude, bool canStart, String? message)
+        eventVerified,
+    required TResult Function(CodingEventDTO event) eventOnline,
+    required TResult Function() initial,
+    required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
+    required TResult Function(String eventId, OtpMode mode, String? error)
+        waitingOtpCode,
+    required TResult Function(String eventId) creationSuccessful,
+    required TResult Function(String eventId) closeEventForm,
+    required TResult Function() terminationSuccessful,
+    required TResult Function() loading,
+    required TResult Function(String message, Object? error, StackTrace? st)
+        error,
+  }) {
+    return pastEvent(eventId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
+        eventVerified,
+    TResult Function(CodingEventDTO event)? eventOnline,
+    TResult Function()? initial,
+    TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
+    TResult Function(String eventId, OtpMode mode, String? error)?
+        waitingOtpCode,
+    TResult Function(String eventId)? creationSuccessful,
+    TResult Function(String eventId)? closeEventForm,
+    TResult Function()? terminationSuccessful,
+    TResult Function()? loading,
+    TResult Function(String message, Object? error, StackTrace? st)? error,
+  }) {
+    return pastEvent?.call(eventId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id, String name, double latitude, double longitude,
+            bool canStart, String? message)?
+        eventVerified,
+    TResult Function(CodingEventDTO event)? eventOnline,
+    TResult Function()? initial,
+    TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
+    TResult Function(String eventId, OtpMode mode, String? error)?
+        waitingOtpCode,
+    TResult Function(String eventId)? creationSuccessful,
+    TResult Function(String eventId)? closeEventForm,
+    TResult Function()? terminationSuccessful,
+    TResult Function()? loading,
+    TResult Function(String message, Object? error, StackTrace? st)? error,
+    required TResult orElse(),
+  }) {
+    if (pastEvent != null) {
+      return pastEvent(eventId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddEventVerified value) eventVerified,
+    required TResult Function(EventOnline value) eventOnline,
+    required TResult Function(AddEventInitial value) initial,
+    required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
+    required TResult Function(WaitingOtpCode value) waitingOtpCode,
+    required TResult Function(EventCreationSuccessful value) creationSuccessful,
+    required TResult Function(CloseEventForm value) closeEventForm,
+    required TResult Function(EventTerminationSuccessful value)
+        terminationSuccessful,
+    required TResult Function(AddEventLoading value) loading,
+    required TResult Function(AddEventError value) error,
+  }) {
+    return pastEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AddEventVerified value)? eventVerified,
+    TResult Function(EventOnline value)? eventOnline,
+    TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
+    TResult Function(WaitingOtpCode value)? waitingOtpCode,
+    TResult Function(EventCreationSuccessful value)? creationSuccessful,
+    TResult Function(CloseEventForm value)? closeEventForm,
+    TResult Function(EventTerminationSuccessful value)? terminationSuccessful,
+    TResult Function(AddEventLoading value)? loading,
+    TResult Function(AddEventError value)? error,
+  }) {
+    return pastEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddEventVerified value)? eventVerified,
+    TResult Function(EventOnline value)? eventOnline,
+    TResult Function(AddEventInitial value)? initial,
+    TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
+    TResult Function(WaitingOtpCode value)? waitingOtpCode,
+    TResult Function(EventCreationSuccessful value)? creationSuccessful,
+    TResult Function(CloseEventForm value)? closeEventForm,
+    TResult Function(EventTerminationSuccessful value)? terminationSuccessful,
+    TResult Function(AddEventLoading value)? loading,
+    TResult Function(AddEventError value)? error,
+    required TResult orElse(),
+  }) {
+    if (pastEvent != null) {
+      return pastEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PastEvent implements AddEventState {
+  const factory PastEvent(final CodingEventDTO eventId) = _$PastEvent;
+
+  CodingEventDTO get eventId;
+  @JsonKey(ignore: true)
+  _$$PastEventCopyWith<_$PastEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1014,6 +1251,7 @@ class _$WaitingOtpCode implements WaitingOtpCode {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -1035,6 +1273,7 @@ class _$WaitingOtpCode implements WaitingOtpCode {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1055,6 +1294,7 @@ class _$WaitingOtpCode implements WaitingOtpCode {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1077,6 +1317,7 @@ class _$WaitingOtpCode implements WaitingOtpCode {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -1095,6 +1336,7 @@ class _$WaitingOtpCode implements WaitingOtpCode {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1112,6 +1354,7 @@ class _$WaitingOtpCode implements WaitingOtpCode {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1212,6 +1455,7 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -1233,6 +1477,7 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1253,6 +1498,7 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1275,6 +1521,7 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -1293,6 +1540,7 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1310,6 +1558,7 @@ class _$EventCreationSuccessful implements EventCreationSuccessful {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1406,6 +1655,7 @@ class _$CloseEventForm implements CloseEventForm {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -1427,6 +1677,7 @@ class _$CloseEventForm implements CloseEventForm {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1447,6 +1698,7 @@ class _$CloseEventForm implements CloseEventForm {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1469,6 +1721,7 @@ class _$CloseEventForm implements CloseEventForm {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -1487,6 +1740,7 @@ class _$CloseEventForm implements CloseEventForm {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1504,6 +1758,7 @@ class _$CloseEventForm implements CloseEventForm {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1579,6 +1834,7 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -1600,6 +1856,7 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1620,6 +1877,7 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1642,6 +1900,7 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -1660,6 +1919,7 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1677,6 +1937,7 @@ class _$EventTerminationSuccessful implements EventTerminationSuccessful {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1743,6 +2004,7 @@ class _$AddEventLoading implements AddEventLoading {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -1764,6 +2026,7 @@ class _$AddEventLoading implements AddEventLoading {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1784,6 +2047,7 @@ class _$AddEventLoading implements AddEventLoading {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1806,6 +2070,7 @@ class _$AddEventLoading implements AddEventLoading {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -1824,6 +2089,7 @@ class _$AddEventLoading implements AddEventLoading {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1841,6 +2107,7 @@ class _$AddEventLoading implements AddEventLoading {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -1947,6 +2214,7 @@ class _$AddEventError implements AddEventError {
     required TResult Function(CodingEventDTO event) eventOnline,
     required TResult Function() initial,
     required TResult Function() oldEvent,
+    required TResult Function(CodingEventDTO eventId) pastEvent,
     required TResult Function(String eventId, OtpMode mode, String? error)
         waitingOtpCode,
     required TResult Function(String eventId) creationSuccessful,
@@ -1968,6 +2236,7 @@ class _$AddEventError implements AddEventError {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -1988,6 +2257,7 @@ class _$AddEventError implements AddEventError {
     TResult Function(CodingEventDTO event)? eventOnline,
     TResult Function()? initial,
     TResult Function()? oldEvent,
+    TResult Function(CodingEventDTO eventId)? pastEvent,
     TResult Function(String eventId, OtpMode mode, String? error)?
         waitingOtpCode,
     TResult Function(String eventId)? creationSuccessful,
@@ -2010,6 +2280,7 @@ class _$AddEventError implements AddEventError {
     required TResult Function(EventOnline value) eventOnline,
     required TResult Function(AddEventInitial value) initial,
     required TResult Function(OldEvent value) oldEvent,
+    required TResult Function(PastEvent value) pastEvent,
     required TResult Function(WaitingOtpCode value) waitingOtpCode,
     required TResult Function(EventCreationSuccessful value) creationSuccessful,
     required TResult Function(CloseEventForm value) closeEventForm,
@@ -2028,6 +2299,7 @@ class _$AddEventError implements AddEventError {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,
@@ -2045,6 +2317,7 @@ class _$AddEventError implements AddEventError {
     TResult Function(EventOnline value)? eventOnline,
     TResult Function(AddEventInitial value)? initial,
     TResult Function(OldEvent value)? oldEvent,
+    TResult Function(PastEvent value)? pastEvent,
     TResult Function(WaitingOtpCode value)? waitingOtpCode,
     TResult Function(EventCreationSuccessful value)? creationSuccessful,
     TResult Function(CloseEventForm value)? closeEventForm,

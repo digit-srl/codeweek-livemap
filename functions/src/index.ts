@@ -84,8 +84,16 @@ export const checkEventUrl = functions
 
           if (res.status == 200) {
             console.log(res.data);
+            const title = res.data.data.title;
+            const startDateString = res.data.data.start_date;
+            const endDateString = res.data.data.end_date;
             const geoposition = res.data.data.geoposition;
-            if (geoposition == null) {
+            if (
+              title == null ||
+              startDateString == null ||
+              endDateString == null ||
+              geoposition == null
+            ) {
               response.sendStatus(400);
               return;
             }
@@ -94,11 +102,86 @@ export const checkEventUrl = functions
             const lat = +geo[0];
             const long = +geo[1];
 
+            //const eventIdNumber = +eventId;
+            const startDate = new Date(startDateString);
+            const eventYear = startDate.getFullYear();
+            //const endDate = new Date(endDateString);
+
+            if (eventYear < 2022) {
+              //if (date.getFullYear() < 2022) {
+              response.send({
+                status: "old_event",
+              });
+              return;
+            }
+            /*
+            const now = new Date();
+          
+
+            if (now > endDate) {
+              //passato
+            } else if (now < startDate) {
+              //futuro
+              response.send({
+                status: "not_exists",
+                event: {
+                  id: eventId,
+                  name: title,
+                  date: startDate,
+                  location: {
+                    _latitude: lat,
+                    _longitude: long,
+                  },
+                  status: "unknown",
+                },
+              });
+            } else if (now > startDate && now < endDate) {
+              //attuale
+              response.send({
+                status: "not_exists",
+                event: {
+                  id: eventId,
+                  name: title,
+                  date: startDate,
+                  location: {
+                    _latitude: lat,
+                    _longitude: long,
+                  },
+                  status: "unknown",
+                },
+              });
+            }
+          
+            //today.getFullYear() === date.getFullYear() &&
+            //today.getMonth() === date.getMonth() &&
+            //today.getDate() === date.getDate();
+
+            //L'ideale sarebbe prendere start date e end date (sono giorno) per decidere se è attuale (> start e < end); futuro (< start); passato (> end).
+            if (isToday(date)) {
+              response.send({
+                status: "not_exists",
+                event: {
+                  id: eventId,
+                  name: title,
+                  date: startDate,
+                  location: {
+                    _latitude: lat,
+                    _longitude: long,
+                  },
+                  status: "unknown",
+                },
+              });
+            } else {
+            }
+            */
+
             response.send({
               status: "not_exists",
               event: {
                 id: eventId,
-                name: res.data.data.title,
+                name: title,
+                startDate: startDateString,
+                endDate: endDateString,
                 location: {
                   _latitude: lat,
                   _longitude: long,
@@ -138,6 +221,25 @@ export const onEventEdited = functions
       return;
     } else if (!change.before.exists && change.after.exists) {
       console.log("event added on db");
+
+      if (event != null && event?.status == "off") {
+        var loc = 0;
+        var participants = 0;
+        if (loc != null) {
+          loc = event.loc;
+        }
+        if (participants != null) {
+          participants = event.participants;
+        }
+        await statusDocRef().update({
+          loc: firestore.FieldValue.increment(loc),
+          participants: firestore.FieldValue.increment(participants),
+        });
+      } else {
+        await statusDocRef().update({
+          liveEventsCount: firestore.FieldValue.increment(1),
+        });
+      }
       await statusDocRef().update({
         liveEventsCount: firestore.FieldValue.increment(1),
       });
@@ -154,6 +256,7 @@ export const onEventEdited = functions
       await statusDocRef().update({
         liveEventsCount: firestore.FieldValue.increment(-1),
         loc: firestore.FieldValue.increment(event.loc),
+        participants: firestore.FieldValue.increment(event.participants),
       });
       return;
     }
@@ -215,6 +318,7 @@ export const logOpenedEvents = functions
     }
   });
 
+/*
 export const tryCron = functions
   .region("europe-west3")
   .https.onRequest(
@@ -244,6 +348,7 @@ export const tryCron = functions
       });
     }
   );
+*/
 
 async function getEvent(eventId: string) {
   const res = await axios.get(
@@ -448,3 +553,17 @@ function makeOTP() {
   }
   return result;
 }
+
+/*
+function isToday(date: Date) {
+  const today = new Date();
+
+  // 👇️ Today's date
+  console.log(today);
+
+  if (today.toDateString() === date.toDateString()) {
+    return true;
+  }
+
+  return false;
+}*/

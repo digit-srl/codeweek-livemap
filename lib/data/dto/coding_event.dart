@@ -19,7 +19,6 @@ class CodingEventDTO with _$CodingEventDTO {
     int? loc,
     @TypeOfCodeConverter() TypeOfCode? typeOfCode,
     @GeoPointConverter() required GeoPoint location,
-    // int? lineOfCode,
   }) = _CodingEventDTO;
 
   factory CodingEventDTO.fromJson(Map<String, Object?> json) =>

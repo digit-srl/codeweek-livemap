@@ -75,6 +75,8 @@ class AddEventScreen extends ConsumerWidget {
                 name: name,
                 latitude: latitude,
                 longitude: longitude,
+                canStart: canStart,
+                message: message,
               ),
               eventOnline: (CodingEventDTO event) => EventOnlineWidget(
                 event: event,
@@ -88,7 +90,9 @@ class AddEventScreen extends ConsumerWidget {
                       st?.toString() ?? '',
                       maxLines: 10,
                     ),
-                  const BackToFormButton(),
+                  const BackToFormButton(
+                    withOr: false,
+                  ),
                 ],
               ),
               creationSuccessful: (eventId) => GenericMessage(
@@ -138,10 +142,17 @@ class AddEventScreen extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: const [
                     Text(
-                        'Siamo spiacenti, l\'evento inserito non è dell\'anno corrente'),
+                      'Siamo spiacenti, l\'evento inserito non è dell\'anno corrente',
+                    ),
+                    BackToFormButton(
+                      withOr: false,
+                    ),
                   ],
                 );
               },
+              pastEvent: (event) => EventOnlineWidget(
+                event: event,
+              ),
             ),
           ),
         ),
@@ -232,13 +243,17 @@ class StartEvent extends ConsumerWidget {
   final String name;
   final double latitude;
   final double longitude;
+  final bool canStart;
+  final String? message;
 
   const StartEvent({
     Key? key,
     required this.eventId,
     required this.name,
+    required this.canStart,
     required this.latitude,
     required this.longitude,
+    this.message,
   }) : super(key: key);
 
   @override
@@ -263,15 +278,17 @@ class StartEvent extends ConsumerWidget {
           value: longitude.toString(),
         ),
         const SizedBox(height: 32),
-        ElevatedButton(
-          onPressed: () {
-            ref
-                .read(addEventNotifierProvider.notifier)
-                .requestOtpCode(eventId, OtpMode.creation);
-          },
-          child: const Text('Avvia'),
-        ),
-        const BackToFormButton(),
+        if (canStart)
+          ElevatedButton(
+            onPressed: () {
+              ref
+                  .read(addEventNotifierProvider.notifier)
+                  .requestOtpCode(eventId, OtpMode.creation);
+            },
+            child: const Text('Avvia'),
+          ),
+        if (message != null) Text(message!),
+        BackToFormButton(withOr: canStart),
       ],
     );
   }
@@ -293,13 +310,17 @@ class EventOnlineWidget extends ConsumerWidget {
         Row(
           children: [
             Text(
-              event.status == 'off' ? 'Evento concluso' : 'Evento in corso',
+              event.status == 'off'
+                  ? 'Evento concluso'
+                  : event.status == 'on'
+                      ? 'Evento in corso'
+                      : 'Evento passato',
               style: Theme.of(context).textTheme.headline4,
             ),
             const Spacer(),
             Icon(
-              event.status == 'off' ? Icons.circle : Icons.check_circle,
-              color: event.status == 'off' ? Colors.red : Colors.green,
+              event.status == 'on' ? Icons.check_circle : Icons.circle,
+              color: event.status == 'on' ? Colors.green : Colors.red,
             ),
           ],
         ),
@@ -316,7 +337,13 @@ class EventOnlineWidget extends ConsumerWidget {
                   .requestOtpCode(event.id, OtpMode.termination);
             }
           },
-          child: Text(event.status == 'off' ? 'Vai alla mappa' : 'Termina'),
+          child: Text(
+            event.status == 'off'
+                ? 'Vai alla mappa'
+                : event.status == 'on'
+                    ? 'Termina'
+                    : 'Aggiungi info',
+          ),
         ),
         // if (event.status == 'off') ...[
         const BackToFormButton()
@@ -327,15 +354,22 @@ class EventOnlineWidget extends ConsumerWidget {
 }
 
 class BackToFormButton extends ConsumerWidget {
-  const BackToFormButton({Key? key}) : super(key: key);
+  final bool withOr;
+
+  const BackToFormButton({
+    Key? key,
+    this.withOr = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SizedBox(height: 16),
-        const Text('oppure'),
+        if (withOr) ...[
+          const SizedBox(height: 16),
+          const Text('oppure'),
+        ],
         const SizedBox(height: 8),
         TextButton(
           onPressed: () {

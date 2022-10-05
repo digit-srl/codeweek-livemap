@@ -10,6 +10,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../cloud.dart';
 import '../consts.dart';
+import 'package:intl/intl.dart';
 import '../data/dto/event.dart';
 
 extension DateTimeX on DateTime {
@@ -40,12 +41,22 @@ class AddEventNotifier extends StateNotifier<AddEventState> {
     );
   }
 
+  final format = DateFormat("dd/MM/yyyy");
+
   // final format = DateFormat();
   CodingEventDTO? cacheEvent;
   final dio = Dio();
 
-  //https://codeweek.eu/view/449959/ic-terralba-genova-g-marconi-classe-5b-a-procida-con-codytrip
+  // 2021
+  //https://codeweek.eu/view/363207/dunya-su-gunu
+
+  // Past
+  // https://codeweek.eu/view/449959/ic-terralba-genova-g-marconi-classe-5b-a-procida-con-codytrip
+
+  // Future
+  // https://codeweek.eu/view/454100/happy-codeweek-anniversary-challenge
   checkUrl(String url) async {
+    cacheEvent = null;
     if (eventReg.hasMatch(url)) {
       state = const AddEventLoading();
       try {
@@ -68,31 +79,34 @@ class AddEventNotifier extends StateNotifier<AddEventState> {
           cacheEvent = d.event;
           if (d.status == 'old_event') {
             state = const OldEvent();
-          } else if (d.status == 'exists') {
-            state = EventOnline(event: d.event!);
-          } else if (d.status == 'not_exists' && d.event != null) {
-            /*final start = d.event!.startDate!.midnight;
-            final end = d.event!.endDate!.midnight;
+          } else if (d.status == 'exists' && cacheEvent != null) {
+            state = EventOnline(event: cacheEvent!);
+          } else if (d.status == 'not_exists' && cacheEvent != null) {
+            final start = cacheEvent!.startDate!.midnight;
+            final end = cacheEvent!.endDate!.midnight;
             final now = DateTime.now();
 
+            // Evento passato
             if (now.isAfter(end)) {
-              //nuovo stato di chiusura
+              cacheEvent = cacheEvent!.copyWith(status: 'past');
+              state = PastEvent(cacheEvent!);
               return;
             }
             final canStart = now.isAfter(start) && now.isBefore(end);
-            String? message;*/
+            // String? message;
 
             state = AddEventVerified(
               id: eventId,
-              name: d.event!.name,
-              latitude: d.event!.location.latitude,
-              longitude: d.event!.location.longitude,
-              canStart: true,
-              // message: canStart ? null: 'Potrai aprire l\'evento a partire dal ${start}',
+              name: cacheEvent!.name,
+              latitude: cacheEvent!.location.latitude,
+              longitude: cacheEvent!.location.longitude,
+              canStart: canStart,
+              message: canStart
+                  ? null
+                  : 'Potrai aprire l\'evento a partire dal ${format.format(start)}',
             );
           }
         } else {
-          cacheEvent = null;
           state = const AddEventError(
             message:
                 'Si è verificato un errore durante la verifica dell\'evento!',
@@ -175,15 +189,23 @@ class AddEventNotifier extends StateNotifier<AddEventState> {
     try {
       final reference = Cloud.eventCollection.doc(eventId);
 
-      await reference.update({
+      final map = {
         'status': 'off',
         'loc': loc,
         'participants': participants,
         'averageAge': averageAge,
         'typeOfCode': enumToString(typeOfCode),
-      });
+      };
+      if (cacheEvent != null) {
+        map['id'] = cacheEvent!.id;
+        map['name'] = cacheEvent!.name;
+        map['location'] = cacheEvent!.location;
+      }
+
+      await reference.set(map, SetOptions(merge: true));
       state = const EventTerminationSuccessful();
     } catch (ex, st) {
+      print(st);
       state = AddEventError(
           error: ex,
           st: st,

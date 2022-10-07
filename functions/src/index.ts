@@ -225,10 +225,10 @@ export const onEventEdited = functions
       if (event != null && event?.status == "off") {
         var loc = 0;
         var participants = 0;
-        if (loc != null) {
+        if (event.loc != null) {
           loc = event.loc;
         }
-        if (participants != null) {
+        if (event.participants != null) {
           participants = event.participants;
         }
         await statusDocRef().update({
@@ -240,9 +240,6 @@ export const onEventEdited = functions
           liveEventsCount: firestore.FieldValue.increment(1),
         });
       }
-      await statusDocRef().update({
-        liveEventsCount: firestore.FieldValue.increment(1),
-      });
       return;
     }
 

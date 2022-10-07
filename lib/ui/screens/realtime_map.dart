@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cw_live_map/application/map_stream.dart';
+import 'package:cw_live_map/application/stages_stream.dart';
 import 'package:cw_live_map/cloud.dart';
 import 'package:cw_live_map/data/dto/coding_event.dart';
+import 'package:cw_live_map/data/dto/fiaccola_stage.dart';
 import 'package:cw_live_map/ui/widgets/my_text_field.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -51,6 +53,27 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
       }
     });
 
+    ref.listen(stagesStreamProvider, (previous, next) {
+      final stages = next.value ?? [];
+      ref.read(mapProvider).updateStages(stages);
+    });
+    // ref.listen<FiaccolaStage?>(mapNotifierProvider, (previous, next) {
+    //   /*print('fiaccola marker update');
+    //   if (next != null) {
+    //
+    //     print('fiaccola marker: ${next.region}');
+    //     final m = Marker(
+    //       icon: fiaccolaPin,
+    //       markerId: MarkerId('fiaccola'),
+    //       position: LatLng(next.lat, next.long),
+    //       infoWindow: InfoWindow(title: next.region, snippet: next.label),
+    //     );
+    //     ref
+    //         .read(markersStateProvider.notifier)
+    //         .update((state) => {...state, m});
+    //   }*/
+    // });
+
     final markers = ref.watch(markersStateProvider);
     // final nameController = useTextEditingController();
     // final latController = useTextEditingController();
@@ -60,10 +83,6 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
         children: [
           Positioned.fill(
             child: GoogleMap(
-              // scrollGesturesEnabled: false,
-              // zoomGesturesEnabled: false,
-              // gestureRecognizers: Set()
-              //   ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer())),
               onMapCreated: (c) {
                 print('map created');
                 // mapController = controller;
@@ -141,7 +160,8 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
                               AutoSizeText(
                                 'Attività in corso: $count',
                                 maxLines: 1,
-                                group: group,minFontSize: 8,
+                                group: group,
+                                minFontSize: 8,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4
@@ -160,7 +180,8 @@ class _RealtimeMapState extends ConsumerState<RealtimeMap> {
                               AutoSizeText(
                                 'Partecipanti: $p',
                                 maxLines: 1,
-                                group: group,minFontSize: 8,
+                                group: group,
+                                minFontSize: 8,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4

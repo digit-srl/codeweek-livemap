@@ -63,6 +63,8 @@ dependencies:
   flex_color_scheme: ^6.0.1
   pin_code_fields:
   auto_size_text:
+  pluto_grid: ^5.1.2
+  calendar_view: ^1.0.0
 
 dev_dependencies:
   flutter_test:

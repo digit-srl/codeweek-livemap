@@ -83,11 +83,11 @@ class AddEventNotifier extends StateNotifier<AddEventState> {
             state = EventOnline(event: cacheEvent!);
           } else if (d.status == 'not_exists' && cacheEvent != null) {
             final start = cacheEvent!.startDate!.midnight;
-            final end = cacheEvent!.endDate!.midnight;
+            final end = cacheEvent!.endDate!.midnight.add(Duration(hours:23,minutes: 59,seconds: 59));
             final now = DateTime.now();
 
             // Evento passato
-            if (now.isAfter(end)) {
+            if (now.midnight.isAfter(end)) {
               cacheEvent = cacheEvent!.copyWith(status: 'past');
               state = PastEvent(cacheEvent!);
               return;

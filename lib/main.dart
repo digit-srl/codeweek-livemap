@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'app.dart';
+import 'application/map_stream.dart';
 import 'firebase_options.dart';
 
 
@@ -26,9 +28,15 @@ Future<void> main() async {
   );
   usePathUrlStrategy();
 
+  fiaccolaPin = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(), 'assets/fiaccola.png');
+  livePin = await getCustomPinWithBorder(20);
+  offPin = await getCustomPinWithBorder(20,
+      baseColor: Colors.black.withOpacity(0.4));
+
   if (kDebugMode) {
-    final d = "localhost";
-    FirebaseFirestore.instance.useFirestoreEmulator(d, 8082);
+    // final d = "localhost";
+    // FirebaseFirestore.instance.useFirestoreEmulator(d, 8082);
   }
   rootBundle.loadString('assets/map_style.txt').then((s) {
     mapStyle = s;

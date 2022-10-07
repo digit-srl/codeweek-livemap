@@ -1,13 +1,20 @@
+import 'dart:async';
 import 'dart:ui';
-
+import 'package:calendar_view/calendar_view.dart';
+import 'package:collection/collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cw_live_map/application/stages_stream.dart';
 import 'package:cw_live_map/cloud.dart';
 import 'package:cw_live_map/data/dto/coding_event.dart';
+import 'package:cw_live_map/data/dto/fiaccola_stage.dart';
 import 'package:cw_live_map/data/dto/stats.dart';
+import 'package:cw_live_map/ui/screens/fiaccola_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../ui/screens/realtime_map.dart';
 
 final statusStreamProvider = StreamProvider<StatsDTO>((ref) async* {
   final stream = Cloud.statsDoc.snapshots();
@@ -45,17 +52,12 @@ final eventStreamProvider = StreamProvider<List<CodingEventDTO>>((ref) async* {
 final markersProvider = FutureProvider<Set<Marker>>((ref) async {
   final list = ref.watch(eventStreamProvider).value ?? [];
 
-  fiaccola ??= await BitmapDescriptor.fromAssetImage(ImageConfiguration(),'assets/fiaccola.png');
-  livePin ??= await getCustomPinWithBorder(20);
-  offPin ??= await getCustomPinWithBorder(20,
-      baseColor: Colors.black.withOpacity(0.4));
-
   return list
       .map(
         (e) => Marker(
           markerId: MarkerId(e.id),
           // icon: fiaccola!,
-          icon: e.status == 'on' ? livePin! : offPin!,
+          icon: e.status == 'on' ? livePin : offPin,
           infoWindow: InfoWindow(
             title: e.name,
             snippet: e.loc != null ? 'Linee di codice: ${e.loc ?? '-'}' : null,
@@ -69,11 +71,11 @@ final markersProvider = FutureProvider<Set<Marker>>((ref) async {
       .toSet();
 });
 
-BitmapDescriptor? livePin;
-BitmapDescriptor? offPin;
-BitmapDescriptor? fiaccola;
+late BitmapDescriptor livePin;
+late BitmapDescriptor offPin;
+late BitmapDescriptor fiaccolaPin;
 
-Future<BitmapDescriptor?> getCustomPinWithBorder(
+Future<BitmapDescriptor> getCustomPinWithBorder(
   int sizeInt, {
   String? text,
   Color? baseColor,
@@ -90,7 +92,7 @@ Future<BitmapDescriptor?> getCustomPinWithBorder(
 
   //Shadow
   Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
-  paint_0_fill.color = baseColor ?? Color(0xFFFA6825);
+  paint_0_fill.color = baseColor ?? const Color(0xFFFA6825);
   Paint paintBorder = Paint()
     ..color = Colors.white
     ..strokeWidth = size.width / 20
@@ -112,5 +114,62 @@ Future<BitmapDescriptor?> getCustomPinWithBorder(
     }*/
     return b;
   }
-  return null;
+  return BitmapDescriptor.defaultMarker;
+}
+
+final mapProvider = Provider<MapNotifier>((ref) {
+  return MapNotifier(ref);
+});
+
+class MapNotifier {
+  Timer? timer;
+  final Ref ref;
+
+  // final List<FiaccolaStage> stages;
+
+  MapNotifier(this.ref) {
+    timer = Timer.periodic(const Duration(minutes: 5), (timer) {
+      checkFiaccola();
+    });
+  }
+
+  updateStages(List<FiaccolaStage> stages) {
+    this.stages = stages;
+    timer?.cancel();
+    checkFiaccola();
+    timer = Timer.periodic(const Duration(minutes: 5), (timer) {
+      checkFiaccola();
+    });
+  }
+
+  List<FiaccolaStage> stages = [];
+
+  checkFiaccola() {
+    print('checkFiaccola');
+    final now = DateTime.now();
+    // final fake = DateTime(now.year, now.month, 10, now.hour, now.minute);
+    final fiaccola = stages.firstWhereOrNull(
+        (f) => now.isAfter(f.startTime) && now.isBefore(f.endTime));
+    print('checkFiaccola : ${fiaccola?.region}');
+    print(fiaccola?.startTime);
+    print(fiaccola?.endTime);
+
+    if (fiaccola != null) {
+      final m = Marker(
+        icon: fiaccolaPin,
+        markerId: const MarkerId('fiaccola'),
+        position:
+            LatLng(fiaccola.location.latitude, fiaccola.location.longitude),
+        infoWindow: InfoWindow(title: fiaccola.region, snippet: fiaccola.label),
+      );
+      ref.read(markersStateProvider.notifier).update((state) => {...state, m});
+    } else {
+      ref.read(markersStateProvider.notifier).update((state) {
+        final s = state.toSet();
+        s.removeWhere(
+            (element) => element.markerId == const MarkerId('fiaccola'));
+        return s;
+      });
+    }
+  }
 }

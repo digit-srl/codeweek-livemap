@@ -1,5 +1,6 @@
 import 'package:cw_live_map/ui/screens/add_event.dart';
 import 'package:cw_live_map/ui/screens/fiaccola_grid.dart';
+import 'package:cw_live_map/ui/screens/info.dart';
 import 'package:cw_live_map/ui/screens/realtime_map.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,9 +54,9 @@ class RouterNotifier extends ChangeNotifier {
           path: FiaccolaCalendar.routeName,
           builder: (context, state) => const FiaccolaCalendar(),
         ),
-        // GoRoute(
-        //   path: EventsStats.routeName,
-        //   builder: (context, state) => const EventsStatsScreen(),
-        // ),
+        GoRoute(
+          path: InfoScreen.routeName,
+          builder: (context, state) => const InfoScreen(),
+        ),
       ];
 }

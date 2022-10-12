@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:ui';
-import 'package:calendar_view/calendar_view.dart';
+
 import 'package:collection/collection.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cw_live_map/application/stages_stream.dart';
 import 'package:cw_live_map/cloud.dart';
 import 'package:cw_live_map/data/dto/coding_event.dart';
 import 'package:cw_live_map/data/dto/fiaccola_stage.dart';
 import 'package:cw_live_map/data/dto/stats.dart';
-import 'package:cw_live_map/ui/screens/fiaccola_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,6 +55,8 @@ final markersProvider = FutureProvider<Set<Marker>>((ref) async {
           markerId: MarkerId(e.id),
           // icon: fiaccola!,
           icon: e.status == 'on' ? livePin : offPin,
+          zIndex: e.status == 'on' ? 1 : 0.0,
+          anchor: const Offset(0.5, 0.5),
           infoWindow: InfoWindow(
             title: e.name,
             snippet: e.loc != null ? 'Linee di codice: ${e.loc ?? '-'}' : null,
@@ -144,7 +143,7 @@ class MapNotifier {
 
   List<FiaccolaStage> stages = [];
 
-  checkFiaccola() {
+  checkFiaccola() async {
     print('checkFiaccola');
     final now = DateTime.now();
     // final fake = DateTime(now.year, now.month, 10, now.hour, now.minute);
@@ -157,12 +156,23 @@ class MapNotifier {
     if (fiaccola != null) {
       final m = Marker(
         icon: fiaccolaPin,
+        zIndex: 2,
         markerId: const MarkerId('fiaccola'),
         position:
             LatLng(fiaccola.location.latitude, fiaccola.location.longitude),
         infoWindow: InfoWindow(title: fiaccola.region, snippet: fiaccola.label),
       );
-      ref.read(markersStateProvider.notifier).update((state) => {...state, m});
+      ref.read(markersStateProvider.notifier).update((state) {
+        final s = state.toSet();
+        s.removeWhere(
+          (element) => element.markerId == const MarkerId('fiaccola'),
+        );
+        return s;
+      });
+      await Future.delayed(const Duration(seconds: 1));
+      ref.read(markersStateProvider.notifier).update((state) {
+        return {...state, m};
+      });
     } else {
       ref.read(markersStateProvider.notifier).update((state) {
         final s = state.toSet();
